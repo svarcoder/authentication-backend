@@ -42,9 +42,8 @@ export const login = async (req: Request, res: Response) => {
         status: 404,
         message: "User not found",
       });
-    const salt = await bcrypt.genSalt(10);
-
-    const isMatch = await bcrypt.compare(password, user?.password);
+   
+    const isMatch = await user.comparePassword(password);
 
     if (!isMatch)
       return res.status(404).json({
